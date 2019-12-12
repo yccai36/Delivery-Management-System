@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Delieveree">
+    <meta name="author" content="Sirui Wang">
+    <title>Deliveree</title>
+    <link href="https://fonts.googleapis.com/css?family=Tangerine&display=swap" rel="stylesheet">
+    <style>
+        .user-header>.user-title {
+            font-family: 'Tangerine', serif;
+            font-size: 50px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'deliveree/index.css' %}">
+</head>
+
+<body>
+    <div class="user">
+        <header class="user-header">
+            <img class = "logo" src="{% static 'deliveree/images/delivery.svg' %}" alt="logo-here" />
+            <h1 class="user-title">Welcome to Delieveree</h1>
+        </header>
+
+        <form class="form" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" placeholder="First Name" id="firstname" class="form-input" />
+            </div>
+
+            <div class="form-group">
+                <input type="text" placeholder="Last Name" id="lastname" class="form-input" />
+            </div>
+            <div class="form-group">
+                <input type="tel" placeholder="Phone number" id="contact" class="form-input"
+                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" />
+            </div>
+
+            <div class="form-group">
+                <input type="text" placeholder="Address" id="address" class="form-input" />
+            </div>
+
+            <div class="form-group">
+                <input type="date" placeholder="Select your delivery date" id="date" class="form-input" />
+            </div>
+            <div class="form-group">
+                <input type="time" placeholder="Select your delivery pickup time" id="time" step="1800"
+                    class="form-input" />
+            </div>
+
+            <button class="btn" type="button" id="submit-form">Submit</button>
+            <!-- The Modal -->
+            <p id="loading-msg" class="modal-header"></p>
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Your Deliveree Order</h2>
+                    </div>
+                    <div class="modal-body">
+                        <p> </p>
+                        <p id="submit-status">Your form has been submitted, please wait for confirmation</p>
+                    </div>
+                </div>
+
+            </div>
+            <p id="login-error"></p>
+        </form>
+    </div>
+    <script src="{% static 'deliveree/main.js' %}"></script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("submit-form");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+            document.querySelector("#submit-status").innerHTML =
+                "Please wait for confirmation";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>
